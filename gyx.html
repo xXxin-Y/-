@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>郭雅欣 | 东北大学 · 计算机科学与技术 | 粉蓝梦境</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- 图片画廊轻量级库 (lightbox) 用于证书/照片弹窗 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f8f0fc;  /* 粉紫氛围基底 */
+            font-family: 'Inter', sans-serif;
+            color: #2d2b4e;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* 粉蓝滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f3e5ff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b8a9e8;
+            border-radius: 12px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        /* 导航栏 粉白玻璃 */
+        nav {
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(16px);
+            background: rgba(255, 245, 255, 0.92);
+            border-bottom: 1px solid rgba(183, 144, 212, 0.25);
+            z-index: 100;
+            padding: 16px 0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+        }
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #b87bdd, #6c8ed6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+        .nav-links a {
+            color: #4a3a6e;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            font-size: 0.95rem;
+        }
+        .nav-links a:hover {
+            color: #c084fc;
+            border-bottom: 2px solid #d9a7ff;
+            padding-bottom: 4px;
+        }
+
+        /* 按钮粉蓝 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border: 1px solid #ddcef5;
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-weight: 600;
+            color: #4a3a6e;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .btn-primary {
+            background: linear-gradient(95deg, #c47de0, #8aa9e6);
+            border: none;
+            color: white;
+            box-shadow: 0 4px 10px rgba(158, 112, 194, 0.25);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(95deg, #b468d4, #7294db);
+        }
+
+        /* Hero区 - 个人简介 */
+        .hero {
+            padding: 60px 0 40px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .hero-content {
+            flex: 1;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: #ede4ff;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #b260d6;
+            margin-bottom: 20px;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+            color: #352b5c;
+        }
+        .hero-content .subtitle {
+            font-size: 1.2rem;
+            color: #5d5391;
+            margin-bottom: 20px;
+            border-left: 4px solid #d6a2ff;
+            padding-left: 16px;
+        }
+        .info-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 24px 0;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f9f2ff;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: #4d3b78;
+        }
+        .info-item i {
+            color: #b87bdd;
+            width: 20px;
+        }
+        /* 长方形头像 - 矩形圆角 */
+        .hero-avatar {
+            flex-shrink: 0;
+            background: linear-gradient(145deg, #f3e9ff, #e1d3ff);
+            border-radius: 28px;
+            padding: 8px;
+            box-shadow: 0 12px 24px rgba(140, 100, 190, 0.12);
+        }
+        .hero-avatar img {
+            width: 180px;    /* 宽度变窄 */
+            height: 240px;   /* 高度增加，形成竖长矩形 */
+            object-fit: cover;
+            border-radius: 22px;
+            background: #ffffff;
+            display: block;
+        }
+
+        /* 通用卡片样式 粉白 */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 48px 0 32px;
+            position: relative;
+            display: inline-block;
+            color: #533d82;
+        }
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #d9a7ff, #a5c1f0);
+            margin-top: 8px;
+            border-radius: 4px;
+        }
+        .card {
+            background: rgba(255, 252, 255, 0.95);
+            border-radius: 28px;
+            padding: 24px 28px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+            transition: 0.2s;
+            border: 1px solid #f1e6ff;
+            margin-bottom: 28px;
+        }
+        .badge-score {
+            background: #ede4ff;
+            color: #8b5cf6;
+            border-radius: 40px;
+            padding: 10px 20px;
+            font-weight: 800;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+        .course-list {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);  
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .course-tag {
+            background: #f9f2ff;
+            padding: 8px 12px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: center;
+            color: #4d3f73;
+            border: 1px solid #eddfff;
+        }
+
+        /* 荣誉证书 / 照片画廊 */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .gallery-item {
+            background: #ffffff;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.03);
+            transition: 0.2s;
+            cursor: pointer;
+            border: 1px solid #f1e6ff;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            display: block;
+            transition: 0.2s;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.02);
+        }
+        .gallery-caption {
+            padding: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-align: center;
+            background: white;
+            color: #6c52a3;
+        }
+
+        /* 竞赛经历列表 */
+        .exp-item {
+            border-left: 3px solid #c49af0;
+            padding-left: 20px;
+            margin-bottom: 28px;
+        }
+        .exp-title {
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            color: #3d2b66;
+        }
+        .exp-date {
+            color: #8f7bbf;
+            font-size: 0.85rem;
+            font-weight: normal;
+        }
+        .exp-desc {
+            margin-top: 10px;
+            color: #52477a;
+            line-height: 1.6;
+        }
+
+        /* 技能荣誉区 */
+        .skills-honor {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            margin: 20px 0;
+        }
+        .skills-box, .honor-box {
+            flex: 1;
+            background: rgba(255, 252, 255, 0.95);
+            border-radius: 28px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            border: 1px solid #f1e6ff;
+        }
+        .skills-box h3 i, .honor-box h3 i {
+            color: #bc8cf7;
+        }
+
+        /* 联系区域 粉蓝渐变 */
+        .contact-bar {
+            background: linear-gradient(125deg, #e8dbff, #d4e0ff);
+            color: #3a2d5e;
+            border-radius: 40px;
+            padding: 32px 28px;
+            margin: 48px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            border: 1px solid #dfcefc;
+        }
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+        }
+        .contact-info span i {
+            margin-right: 8px;
+            color: #b36be0;
+        }
+        footer {
+            text-align: center;
+            padding: 32px 0;
+            border-top: 1px solid #e4d5fc;
+            color: #8f7bbf;
+        }
+        @media (max-width: 750px) {
+            .hero { flex-direction: column-reverse; text-align: center; }
+            .hero-content .subtitle { border-left: none; text-align: center; }
+            .info-grid { justify-content: center; }
+            .nav-links { gap: 20px; }
+            .course-list { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 900px) {
+            .course-list { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="container nav-inner">
+        <div class="logo">✨ 郭雅欣 |  NEUer</div>
+        <div class="nav-links">
+            <a href="#home">主页</a>
+            <a href="#education">教育</a>
+            <a href="#experience">竞赛</a>
+            <a href="#certificates">证书&荣誉</a>
+            <a href="#gallery">活动影集</a>
+        </div>
+        <a href="#contact" class="btn btn-primary"><i class="fas fa-download"></i> 联系我</a>
+    </div>
+</nav>
+
+<main>
+    <!-- 个人简介 Hero -->
+    <section id="home">
+        <div class="container hero">
+            <div class="hero-content">
+                <div class="hero-badge"><i class="fas fa-laptop-code"></i> 计算机科学与技术 · 2027届</div>
+                <h1>郭雅欣</h1>
+                <div class="subtitle">“严谨的数据探索者”</div>
+                <div class="info-grid">
+                    <div class="info-item"><i class="fas fa-birthday-cake"></i> 2004.09.17</div>
+                    <div class="info-item"><i class="fas fa-map-marker-alt"></i> 东北大学</div>
+                    <div class="info-item"><i class="fas fa-phone-alt"></i> 188-3508-6202</div>
+                    <div class="info-item"><i class="fas fa-envelope"></i> 2272893392@qq.com</div>
+                </div>
+                <p style="color: #5d5391; max-width: 550px;">四次校三等奖学金 | 优秀团员 |  CET-6   <br> 积极认真，擅长团队协作与数据分析，乐于用技术解决实际问题。</p>
+            </div>
+            <div class="hero-avatar">
+                <!-- 长方形头像展示 -->
+                <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E7%99%BD%E5%BA%95%E7%85%A7.jpg" alt="郭雅欣长方形头像">
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- 教育背景  + 主修课程 -->
+        <section id="education">
+            <h2 class="section-title"><i class="fas fa-graduation-cap"></i> 教育背景</h2>
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: baseline;">
+                    <h3 style="font-size: 1.5rem; color:#533d82;">东北大学  ·  计算机科学与技术</h3>
+                    <span class="badge-score">WAS 85.65/100  |  排名 55/196</span>
+                </div>
+                <p style="margin: 12px 0 4px;"><i class="far fa-calendar-alt"></i> 2023.09 – 2027.06</p>
+                <div class="course-list">
+                    <span class="course-tag">线性代数 (96)</span>
+                    <span class="course-tag">高等数学 (85)</span>
+                    <span class="course-tag">概率论 (88)</span>
+                    <span class="course-tag">离散数学 (85)</span>
+                    <span class="course-tag">算法设计与分析 (82)</span>
+                    <span class="course-tag">计算机组成原理 (88)</span>
+                    <span class="course-tag">数据结构 (91)</span>
+                    <span class="course-tag">操作系统 (88)</span>
+                    <span class="course-tag">编译原理 (87)</span>
+                    <span class="course-tag">软件工程 (89)</span>
+                    <span class="course-tag">计算机网络 (91)</span>
+                    <span class="course-tag">数据库原理 (94)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 竞赛经历 /  Experience -->
+        <section id="experience">
+            <h2 class="section-title"><i class="fas fa-trophy"></i> 竞赛经历</h2>
+            <div class="card">
+                <div class="exp-item">
+                    <div class="exp-title">第五届“华数杯”全国大学生数学建模竞赛 <span class="exp-date">2024.07 – 2024.08</span></div>
+                    <div class="exp-desc">▸ 负责数据清洗、多因素回归预测模型构建及代码实现(Python)，用于旅游城市评分问题；利用Dijkstra算法求解最佳旅游路径。<br>
+                    ▸ 完成模型可视化展示与误差校验，协作撰写3万余字论文，获得本科生组优秀奖。</div>
+                </div>
+                <div class="exp-item">
+                    <div class="exp-title">APMCM亚太地区大学生数学建模竞赛 <span class="exp-date">2024.11</span></div>
+                    <div class="exp-desc">▸ 独立负责数据全流程处理(清洗、缺失值/异常值处理)及可视化分析。<br>
+                    ▸ 基于Matplotlib绘制趋势折线图，揭示宠物行业关键影响因素，为团队建模提供核心决策依据。</div>
+                </div>
+                <div class="exp-item">
+                    <div class="exp-title">全国大学生市场调研大赛（队长） <span class="exp-date">2024.10 – 2025.04</span></div>
+                    <div class="exp-desc">▸ 带领5人团队完成“助农直播带货”主题调研，设计调研方案，发放1500份问卷并实地调研。<br>
+                    ▸ 根据模型进行代码实现，深度解析数据，合作输出1.7万字调研报告。</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心技能 + 荣誉奖励 双栏 -->
+        <div class="skills-honor">
+            <div class="skills-box">
+                <h3><i class="fas fa-code"></i> 核心技能</h3>
+                <ul style="margin-top: 16px; list-style: none;">
+                    <li><i class="fas fa-chart-line" style="color:#bc8cf7;"></i> 数据工具: Python、SQL、SPSS、Matplotlib</li>
+                    <li><i class="fas fa-file-alt" style="color:#bc8cf7;"></i> 办公技能: Office三件套(数据透视表/调研报告/PPT设计)</li>
+                    <li><i class="fas fa-users" style="color:#bc8cf7;"></i> 软实力: 逻辑思维、跨团队沟通、快速拆解问题</li>
+                </ul>
+            </div>
+            <div class="honor-box">
+                <h3><i class="fas fa-medal"></i> 荣誉奖励</h3>
+                <ul style="margin-top: 16px; list-style: none;">
+                    <li>🏅 四次校三等奖学金</li>
+                    <li>⭐ 优秀团员 & 军训先进个人</li>
+                    <li>📘 CET-6（485分）</li>
+                    <li>📊 华数杯优秀奖 / 亚太杯参与奖</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 获奖证书 / 荣誉证书展示区 -->
+        <section id="certificates">
+            <h2 class="section-title"><i class="fas fa-certificate"></i> 获奖证书 & 荣誉</h2>
+            <div class="gallery-grid">
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E5%8D%8E%E6%95%B0%E6%9D%AF.jpg" data-lightbox="certificates" data-title="华数杯证书">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E5%8D%8E%E6%95%B0%E6%9D%AF.jpg" alt="华数杯证书">
+                        <div class="gallery-caption">🏆 华数杯</div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E4%B8%89%E7%AD%89%E5%A5%96%E5%AD%A6%E9%87%911.jpg" data-lightbox="certificates" data-title="校三等奖学金">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E4%B8%89%E7%AD%89%E5%A5%96%E5%AD%A6%E9%87%911.jpg" alt="奖学金证书">
+                        <div class="gallery-caption">📜 校三等奖学金1</div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E4%B8%89%E7%AD%89%E5%A5%96%E5%AD%A6%E9%87%912.jpg" data-lightbox="certificates" data-title="校三等奖学金">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E4%B8%89%E7%AD%89%E5%A5%96%E5%AD%A6%E9%87%912.jpg" alt="奖学金证书">
+                        <div class="gallery-caption">📜 校三等奖学金2</div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E4%BC%98%E7%A7%80%E5%9B%A2%E5%91%98.jpg" data-lightbox="certificates" data-title="优秀团员荣誉证书">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E4%BC%98%E7%A7%80%E5%9B%A2%E5%91%98.jpg" alt="优秀团员">
+                        <div class="gallery-caption">⭐ 优秀团员</div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E4%B8%89%E4%B8%8B%E4%B9%A1%E5%85%88%E8%BF%9B%E5%B0%8F%E5%88%86%E9%98%9F.jpg" data-lightbox="certificates" data-title="三下乡先进分队">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E4%B8%89%E4%B8%8B%E4%B9%A1%E5%85%88%E8%BF%9B%E5%B0%8F%E5%88%86%E9%98%9F.jpg" alt="三下乡先进分队">
+                        <div class="gallery-caption">🏆 三下乡先进小分队</div>
+                    </div>
+                </a>
+            </div>
+            <p style="margin-top: 12px; font-size:0.85rem; color:#8f7bbf;"><i class="fas fa-info-circle"></i> 点击图片可放大查看证书细节</p>
+        </section>
+
+        <!-- 志愿活动 / 个人风采照片墙 -->
+        <section id="gallery">
+            <h2 class="section-title"><i class="fas fa-camera"></i> 志愿活动 & 风采影集</h2>
+            <div class="gallery-grid">
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E4%B8%89%E4%B8%8B%E4%B9%A11.jpg" data-lightbox="life" data-title="助农直播带货调研">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E4%B8%89%E4%B8%8B%E4%B9%A11.jpg" alt="志愿助农调研">
+                        <div class="gallery-caption">🌾 助农直播调研</div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E4%B8%89%E4%B8%8B%E4%B9%A12.jpg" data-lightbox="life" data-title="助农实地走访">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E4%B8%89%E4%B8%8B%E4%B9%A12.jpg" alt="志愿助农走访">
+                        <div class="gallery-caption">🌾 助农实地访谈</div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E5%88%9B%E5%8D%8F%E5%BF%97%E6%84%BF.jpg" data-lightbox="life" data-title="创协志愿活动现场">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E5%88%9B%E5%8D%8F%E5%BF%97%E6%84%BF.jpg" alt="创协志愿">
+                        <div class="gallery-caption">📌 创协志愿活动</div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E9%A9%AC%E6%8B%89%E6%9D%BE%E5%BF%97%E6%84%BF.jpg" data-lightbox="life" data-title="马拉松志愿活动">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E9%A9%AC%E6%8B%89%E6%9D%BE%E5%BF%97%E6%84%BF.jpg" alt="志愿服务">
+                        <div class="gallery-caption">❤️ 马拉松志愿活动 </div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E9%85%8D%E9%9F%B3%E5%A4%A7%E8%B5%9B%E6%B4%BB%E5%8A%A8%E7%85%A7.jpg" data-lightbox="life" data-title="红色配音大赛活动照">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E9%85%8D%E9%9F%B3%E5%A4%A7%E8%B5%9B%E6%B4%BB%E5%8A%A8%E7%85%A7.jpg" alt="配音大赛">
+                        <div class="gallery-caption">🎤 红色配音大赛活动照</div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E9%85%8D%E9%9F%B3%E5%A4%A7%E8%B5%9B%E8%8E%B7%E5%A5%96.jpg" data-lightbox="life" data-title="红色配音大赛获奖">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E9%85%8D%E9%9F%B3%E5%A4%A7%E8%B5%9B%E8%8E%B7%E5%A5%96.jpg" alt="配音大赛获奖">
+                        <div class="gallery-caption">🎤 红色配音大赛领奖</div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E6%94%AF%E9%83%A8%E6%B4%BB%E5%8A%A8%E8%8E%B7%E5%A5%96.jpg" data-lightbox="life" data-title="党支部活动获奖">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E6%94%AF%E9%83%A8%E6%B4%BB%E5%8A%A8%E8%8E%B7%E5%A5%96.jpg" alt="党支部活动获奖">
+                        <div class="gallery-caption">📌 党支部活动领奖</div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E6%98%9F%E6%98%9F%E5%84%BF%E7%AB%A5%E5%BF%97%E6%84%BF1.jpg" data-lightbox="life" data-title="星星儿童志愿活动1">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E6%98%9F%E6%98%9F%E5%84%BF%E7%AB%A5%E5%BF%97%E6%84%BF1.jpg" alt="星星志愿服务">
+                        <div class="gallery-caption">❤️ 星星儿童志愿活动1 </div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E6%98%9F%E6%98%9F%E5%84%BF%E7%AB%A5%E5%BF%97%E6%84%BF2.jpg" data-lightbox="life" data-title="星星儿童志愿活动2">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E6%98%9F%E6%98%9F%E5%84%BF%E7%AB%A5%E5%BF%97%E6%84%BF2.jpg" alt="星星志愿服务2">
+                        <div class="gallery-caption">❤️ 星星儿童志愿活动2 </div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E5%BF%97%E6%84%BF%E5%9F%B9%E8%AE%AD%E8%AF%81%E6%98%8E.jpg" data-lightbox="life" data-title="志愿培训证明">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E5%BF%97%E6%84%BF%E5%9F%B9%E8%AE%AD%E8%AF%81%E6%98%8E.jpg" alt="培训证明">
+                        <div class="gallery-caption">❤️ 志愿培训证明 </div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E6%94%AF%E9%83%A8%E6%B4%BB%E5%8A%A8.jpg" data-lightbox="life" data-title="党支部活动">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E6%94%AF%E9%83%A8%E6%B4%BB%E5%8A%A8.jpg" alt="党支部活动">
+                        <div class="gallery-caption">📌 党支部活动</div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E5%AE%9E%E5%9C%B0%E7%A0%94%E5%AD%A6.jpg" data-lightbox="life" data-title="实地研学">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E5%AE%9E%E5%9C%B0%E7%A0%94%E5%AD%A6.jpg" alt="实地研学">
+                        <div class="gallery-caption">🚩 实地研学</div>
+                    </div>
+                </a>
+                <a href="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E5%AE%9E%E5%9C%B0%E7%A0%94%E5%AD%A6%E7%BA%A2%E8%89%B2.jpg" data-lightbox="life" data-title="红色博物馆实地研学">
+                    <div class="gallery-item">
+                        <img src="https://raw.githubusercontent.com/xXxin-Y/-/refs/heads/main/%E5%AE%9E%E5%9C%B0%E7%A0%94%E5%AD%A6%E7%BA%A2%E8%89%B2.jpg" alt="红色博物馆实地研学">
+                        <div class="gallery-caption">🚩 红色博物馆实地研学</div>
+                    </div>
+                </a>
+            </div>
+            <p style="margin-top: 8px; text-align:center; font-size:0.85rem;">✨ 支持点击放大浏览</p>
+        </section>
+
+        <!-- 自我评价 & 联系栏 -->
+        <div class="card" style="margin: 20px 0;">
+            <h3><i class="fas fa-heart" style="color:#c084fc;"></i> 自我评价</h3>
+            <p style="margin-top: 12px;">做事积极认真，细心负责，熟练运用办公自动化软件，善于在学习中提出问题、发现问题、解决问题，具有较强的分析能力；勤奋好学，踏实肯干，动手能力强，有很强的社会责任感；喜欢和勇于迎接新挑战。</p>
+        </div>
+
+        <div id="contact" class="contact-bar">
+            <div class="contact-info">
+                <span><i class="fas fa-phone-alt"></i> 188-3508-6202</span>
+                <span><i class="fas fa-envelope"></i> 2272893392@qq.com</span>
+                <span><i class="fas fa-map-pin"></i> 东北大学</span>
+            </div>
+            <div>
+                <a href="mailto:2272893392@qq.com" class="btn btn-primary" style="background:white; color:#a16ae2;"><i class="fas fa-paper-plane"></i> 发送邮件</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2026 郭雅欣 — 东北大学计算机科学与技术 | 个人学术主页 | 数据驱动未来</p>
+    <p style="margin-top: 6px; font-size: 0.75rem;">证书/照片均支持点击放大</p>
+</footer>
+
+<!-- Lightbox JS 轻量库 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox-plus-jquery.min.js"></script>
+<script>
+    // 平滑滚动
+    document.querySelectorAll('.nav-links a, .btn-primary[href="#contact"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    // 配置lightbox
+    lightbox.option({
+        'resizeDuration': 200,
+        'wrapAround': true,
+        'albumLabel': "图片 %1 / %2"
+    });
+</script>
+</body>
+</html>
